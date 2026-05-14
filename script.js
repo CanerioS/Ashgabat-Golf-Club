@@ -8,14 +8,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 1200);
     });
 
-    // 2. Cinematic Slider
+    // 2. Cinematic Slider — 4 saniyede bir değişir (eskiden 7 saniyeydi)
     const slides = document.querySelectorAll('.slide');
     let currentSlide = 0;
     setInterval(() => {
         slides[currentSlide].classList.remove('active');
         currentSlide = (currentSlide + 1) % slides.length;
         slides[currentSlide].classList.add('active');
-    }, 7000);
+    }, 4000);
 
     // 3. Smart Navbar & Scroll Reveal
     const nav = document.getElementById('main-nav');
@@ -34,16 +34,31 @@ document.addEventListener('DOMContentLoaded', () => {
         else nav.classList.remove('scrolled');
     });
 
-    // 4. Mobile Menu
+    // 4. Mobile Menu — compact slide panel
     const trigger = document.getElementById('mob-trigger');
-    const close = document.getElementById('mob-close');
+    const closeBtn = document.getElementById('mob-close');
     const overlay = document.getElementById('mob-overlay');
+    const panel = overlay.querySelector('.menu-panel');
 
-    const toggleMenu = () => {
-        overlay.classList.toggle('open');
-        document.body.style.overflow = overlay.classList.contains('open') ? 'hidden' : 'auto';
+    const openMenu = () => {
+        overlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    };
+    const closeMenu = () => {
+        overlay.classList.remove('open');
+        document.body.style.overflow = 'auto';
     };
 
-    trigger.addEventListener('click', toggleMenu);
-    close.addEventListener('click', toggleMenu);
+    trigger.addEventListener('click', openMenu);
+    closeBtn.addEventListener('click', closeMenu);
+
+    // Backdrop (dışı) tıklayınca kapat
+    overlay.addEventListener('click', (e) => {
+        if (!panel.contains(e.target)) closeMenu();
+    });
+
+    // Herhangi bir linke tıklayınca kapat
+    overlay.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', closeMenu);
+    });
 });
