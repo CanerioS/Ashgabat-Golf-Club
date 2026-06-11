@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 1200);
     });
 
-    // 2. Cinematic Slider — 4 saniyede bir değişir (eskiden 7 saniyeydi)
+    // 2. Cinematic Slider — 4 saniyede bir değişir
     const slides = document.querySelectorAll('.slide');
     let currentSlide = 0;
     setInterval(() => {
