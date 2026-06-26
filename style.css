@@ -25,6 +25,15 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
+/* Resimlerin Seçilmesini ve Sürüklenmesini Engelleme Kuralları */
+img, .slide {
+    user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
 /* ═══════════════════════════════════════════
    GRAIN
 ═══════════════════════════════════════════ */
@@ -58,7 +67,7 @@ body {
 .loader-content span { color: rgba(255,255,255,0.5); font-size: 1rem; letter-spacing: 8px; }
 
 /* ═══════════════════════════════════════════
-   NAVBAR
+   NAVBAR & LOGO (Büyütülmüş ve Kusursuz Ortalanmış Yeni Logo Yapısı)
 ═══════════════════════════════════════════ */
 .nav-premium {
     position: fixed; top: 0; width: 100%; height: 88px;
@@ -77,11 +86,20 @@ body {
 }
 .nav-logo {
     font-family: 'Playfair Display', serif;
-    font-size: 1.3rem; font-weight: 800; letter-spacing: 1px;
+    font-size: 1.35rem; font-weight: 800; letter-spacing: 1.5px; /* Ana yazı fontu büyütüldü */
     color: #fff; text-decoration: none; flex-shrink: 0;
-    line-height: 1.2; text-align: left;
+    line-height: 1.1; text-align: center; /* Merkeze hizalama sağlandı */
+    display: inline-block;
 }
-.nav-logo span { color: var(--gold); font-size: 0.75rem; letter-spacing: 4px; display: block; font-weight: 600; }
+.nav-logo span { 
+    color: var(--gold); 
+    font-size: 1.05rem; /* Alt yazı fontu okunaklı olacak şekilde büyütüldü */
+    letter-spacing: 3px; /* Doğal ve şık bir harf aralığı verildi */
+    display: block; 
+    font-weight: 600;
+    text-align: center; /* Üst yazıya göre tam ortalandı */
+    margin-top: 4px;
+}
 
 .nav-links { display: flex; gap: 28px; list-style: none; flex-wrap: nowrap; overflow: hidden; }
 .link-item {
@@ -187,7 +205,7 @@ body {
 }
 .hero-vignette {
     position: absolute; inset: 0;
-    background: linear-gradient(105deg, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.28) 55%, transparent 100%);
+    background: linear-gradient(105deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.15) 55%, transparent 100%);
 }
 .hero-content {
     position: relative; z-index: 10;
@@ -196,7 +214,7 @@ body {
 .reveal-box { overflow: hidden; margin-bottom: 20px; }
 .reveal-item {
     display: inline-block; color: var(--gold);
-    font-size: 0.8rem; letter-spacing: 5px; font-weight: 600;
+    font-size: 1rem; letter-spacing: 3px; font-weight: 600;
     animation: slideUp 1s var(--easing) 0.5s both;
 }
 .hero-content h1 {
@@ -254,18 +272,33 @@ body {
     border-top: 1px solid rgba(197,160,89,0.2);
     padding-top: 10px;
 }
+
+/* HERO STAT ALANI: Kusursuzca İnceltilmiş ve Tam Hizalanmış Cam Panel */
 .hero-stats {
     position: absolute; bottom: 60px; right: 8%;
-    display: flex; align-items: center; z-index: 10;
+    display: flex; align-items: center; justify-content: center; z-index: 10;
+    background: rgba(0, 0, 0, 0.42); 
+    backdrop-filter: blur(5px); 
+    -webkit-backdrop-filter: blur(5px);
+    padding: 10px 6px;
+    border-radius: 4px;
+    border: 1px solid rgba(197, 160, 89, 0.12); 
     animation: fadeIn 1s ease 1.5s both;
 }
-.stat-item { text-align: center; padding: 0 28px; }
+.stat-item { 
+    text-align: center; 
+    padding: 0 18px; 
+}
 .stat-num {
     display: block; font-family: 'Playfair Display', serif;
-    font-size: 2.4rem; font-weight: 800; color: var(--gold); line-height: 1;
+    font-size: 1.9rem; font-weight: 800; color: var(--gold); line-height: 1.1;
 }
-.stat-label { font-size: 0.68rem; letter-spacing: 3px; color: rgba(255,255,255,0.45); margin-top: 4px; display: block; }
-.stat-divider { width: 1px; height: 46px; background: rgba(255,255,255,0.15); }
+.stat-label { 
+    font-size: 0.62rem; letter-spacing: 2.5px; color: rgba(255,255,255,0.65); margin-top: 2px; display: block; 
+}
+.stat-divider { 
+    width: 1px; height: 32px; background: rgba(197,160,89,0.2);
+}
 
 /* ═══════════════════════════════════════════
    GLOBAL HELPERS
@@ -390,7 +423,7 @@ body {
 .course-image:hover img { transform: scale(1.04); }
 
 /* ═══════════════════════════════════════════
-   ACADEMY (Kadraj Ayarı Güncellendi)
+   ACADEMY
 ═══════════════════════════════════════════ */
 .academy-header { margin-bottom: 60px; }
 .academy-header h2 {
@@ -500,7 +533,7 @@ body {
 .recognition-image img { width: 100%; height: 100%; display: block; object-fit: cover; }
 
 /* ═══════════════════════════════════════════
-   PLAYERS TABLE (Scroll Yapısı Entegre Edildi)
+   PLAYERS TABLE
 ═══════════════════════════════════════════ */
 .table-container { max-width: 860px; margin: 0 auto; }
 .table-container h2 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 4vw, 3.8rem); line-height: 1.1; margin-bottom: 0; }
@@ -510,11 +543,10 @@ body {
     margin-top: 44px; 
     overflow-x: auto; 
     overflow-y: auto; 
-    max-height: 310px; /* Sadece ilk 4 satırın görünüp sonrasının taşması için ideal yükseklik */
+    max-height: 310px; 
     border-radius: 6px; 
 }
 
-/* Şık ve tasarıma uygun özel kaydırma çubuğu (Scrollbar) */
 .premium-table::-webkit-scrollbar {
     width: 6px;
     height: 6px;
@@ -532,12 +564,12 @@ body {
 
 .premium-table table { width: 100%; border-collapse: collapse; }
 .premium-table thead { 
-    background: rgba(197,160,89,0.08); 
+    background: var(--bg); 
     border-bottom: 1px solid rgba(197,160,89,0.2); 
-    position: sticky; /* Başlığın kaydırma esnasında yukarıda sabit kalması için */
+    position: sticky; 
     top: 0;
     z-index: 10;
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(10px) saturate(1.2); 
 }
 .premium-table th { text-align: left; padding: 16px 24px; color: var(--gold); letter-spacing: 3px; font-size: 0.7rem; font-weight: 600; }
 .premium-table td { padding: 14px 24px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 1rem; color: #fff; transition: all 0.3s; }
@@ -554,14 +586,14 @@ body {
 .footer-glow { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 500px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); }
 .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 60px; margin-bottom: 60px; padding-bottom: 60px; border-bottom: 1px solid rgba(255,255,255,0.06); }
 .footer-logo { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 800; letter-spacing: 2px; color: #fff; margin-bottom: 12px; line-height: 1.2; }
-.footer-logo span { color: var(--gold); font-size: 1rem; letter-spacing: 6px; display: block; font-weight: 600; margin-top: 2px; }
+.footer-logo span { color: var(--gold); font-size: 1.55rem; letter-spacing: 6px; display: block; font-weight: 600; margin-top: 2px; }
 .footer-tagline { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-style: italic; color: rgba(255, 255, 255, 0.758); letter-spacing: 0.5px; }
 .footer-nav h6, .footer-info h6 { font-size: 0.68rem; letter-spacing: 4px; color: var(--gold); margin-bottom: 18px; font-weight: 600; }
 .footer-nav ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
 .footer-nav a { text-decoration: none; color: rgba(255,255,255,0.52); font-size: 0.95rem; transition: color 0.3s; }
 .footer-nav a:hover { color: var(--gold); }
 .footer-info p { color: rgba(255, 255, 255, 0.585); font-size: 0.95rem; line-height: 1.8; }
-.footer-map-link { display: inline-block; color: rgba(255,255,255,0.7); font-size: 0.95rem; line-height: 1.8; text-decoration: none; border-bottom: 1px solid rgba(197,160,89,0.3); padding-bottom: 2px; transition: color 0.3s, border-color 0.3s; }
+.footer-map-link { display: inline-block; color: rgba(255,255,255,0.7); font-size: 1rem; line-height: 1.8; text-decoration: none; border-bottom: 1px solid rgba(197,160,89,0.3); padding-bottom: 2px; transition: color 0.3s, border-color 0.3s; }
 .footer-map-link:hover { color: var(--gold); border-color: var(--gold); }
 .map-icon { display: inline-block; margin-left: 6px; color: var(--gold); font-size: 0.85rem; transition: transform 0.3s; }
 .footer-map-link:hover .map-icon { transform: translate(2px, -2px); }
