@@ -11,7 +11,7 @@
 }
 
 /* ═══════════════════════════════════════════
-   RESET & BASE
+   RESET & BASE (Metin kopyalama engelleme kuralları eklendi)
 ═══════════════════════════════════════════ */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
 html { scroll-behavior: smooth; }
@@ -23,6 +23,12 @@ body {
     line-height: 1.75;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
+    
+    /* Global Metin Seçimini ve Kopyalamayı Engelleme */
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
 /* Resimlerin Seçilmesini ve Sürüklenmesini Engelleme Kuralları */
@@ -67,7 +73,7 @@ img, .slide {
 .loader-content span { color: rgba(255,255,255,0.5); font-size: 1rem; letter-spacing: 8px; }
 
 /* ═══════════════════════════════════════════
-   NAVBAR & LOGO (Büyütülmüş ve Kusursuz Ortalanmış Yeni Logo Yapısı)
+   NAVBAR & LOGO
 ═══════════════════════════════════════════ */
 .nav-premium {
     position: fixed; top: 0; width: 100%; height: 88px;
@@ -86,18 +92,18 @@ img, .slide {
 }
 .nav-logo {
     font-family: 'Playfair Display', serif;
-    font-size: 1.35rem; font-weight: 800; letter-spacing: 1.5px; /* Ana yazı fontu büyütüldü */
+    font-size: 1.35rem; font-weight: 800; letter-spacing: 1.5px;
     color: #fff; text-decoration: none; flex-shrink: 0;
-    line-height: 1.1; text-align: center; /* Merkeze hizalama sağlandı */
+    line-height: 1.1; text-align: center;
     display: inline-block;
 }
 .nav-logo span { 
     color: var(--gold); 
-    font-size: 1.05rem; /* Alt yazı fontu okunaklı olacak şekilde büyütüldü */
-    letter-spacing: 3px; /* Doğal ve şık bir harf aralığı verildi */
+    font-size: 1.05rem; 
+    letter-spacing: 3px; 
     display: block; 
     font-weight: 600;
-    text-align: center; /* Üst yazıya göre tam ortalandı */
+    text-align: center;
     margin-top: 4px;
 }
 
@@ -273,7 +279,6 @@ img, .slide {
     padding-top: 10px;
 }
 
-/* HERO STAT ALANI: Kusursuzca İnceltilmiş ve Tam Hizalanmış Cam Panel */
 .hero-stats {
     position: absolute; bottom: 60px; right: 8%;
     display: flex; align-items: center; justify-content: center; z-index: 10;
@@ -316,7 +321,7 @@ img, .slide {
 }
 
 /* ═══════════════════════════════════════════
-   ALL CONTENT SECTIONS — unified dark green
+   ALL CONTENT SECTIONS
 ═══════════════════════════════════════════ */
 .story-section,
 .course-section,
@@ -533,7 +538,7 @@ img, .slide {
 .recognition-image img { width: 100%; height: 100%; display: block; object-fit: cover; }
 
 /* ═══════════════════════════════════════════
-   PLAYERS TABLE
+   PLAYERS TABLE (# Satırı / row-num Kaldırıldı)
 ═══════════════════════════════════════════ */
 .table-container { max-width: 860px; margin: 0 auto; }
 .table-container h2 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 4vw, 3.8rem); line-height: 1.1; margin-bottom: 0; }
@@ -575,7 +580,6 @@ img, .slide {
 .premium-table td { padding: 14px 24px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 1rem; color: #fff; transition: all 0.3s; }
 .premium-table tr:last-child td { border-bottom: none; }
 .premium-table tr:hover td { background: rgba(197,160,89,0.06); color: var(--soft-white); padding-left: 30px; }
-.row-num { font-family: 'Playfair Display', serif; color: rgba(219, 160, 50, 0.85) !important; font-size: 1.3rem !important; font-weight: 700; }
 .hcp-val { font-family: 'Playfair Display', serif; font-size: 1.3rem !important; color: var(--gold) !important; font-weight: 700; }
 .country-tag { font-size: 1.08rem; letter-spacing: 0.5px; color: #fff; }
 
