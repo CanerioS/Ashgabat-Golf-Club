@@ -1,10 +1,41 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // 0. Slot Counter Animation (Sayıların Slot Makinesi Gibi Dönüp Durması)
+    const animateCounters = () => {
+        const counters = document.querySelectorAll('.counter-num');
+        const duration = 2000; // Animasyonun toplam süresi (2 saniye)
+        const frameDuration = 1000 / 60; // 60 FPS
+        const totalFrames = Math.round(duration / frameDuration);
+
+        counters.forEach(counter => {
+            const target = +counter.getAttribute('data-target');
+            let frame = 0;
+
+            const counterInterval = setInterval(() => {
+                frame++;
+                // Easing fonksiyonu: Yavaş başlayıp hızlanır, sona doğru slot makinesi gibi yavaşlayarak durur
+                const progress = frame / totalFrames;
+                const easeOutQuad = progress * (2 - progress);
+                const currentCount = Math.floor(easeOutQuad * target);
+
+                counter.innerText = currentCount;
+
+                if (frame === totalFrames) {
+                    counter.innerText = target;
+                    clearInterval(counterInterval);
+                }
+            }, frameDuration);
+        });
+    };
+
     // 1. Preloader
     window.addEventListener('load', () => {
         const loader = document.getElementById('loader');
         setTimeout(() => {
             loader.style.opacity = '0';
-            setTimeout(() => loader.style.display = 'none', 1000);
+            setTimeout(() => {
+                loader.style.display = 'none';
+                animateCounters(); // Loader kaybolduğu an slot animasyonunu başlat
+            }, 1000);
         }, 1200);
     });
 
