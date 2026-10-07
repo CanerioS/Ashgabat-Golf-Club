@@ -1,383 +1,660 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ashgabat Golf Club | Premium Experience</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,800;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+/* ═══════════════════════════════════════════
+   DESIGN TOKENS
+═══════════════════════════════════════════ */
+:root {
+    --gold:       #c5a059;
+    --gold-light: #d4b87a;
+    --bg:         #0c1e18;
+    --bg-alt:     #0f2820;
+    --soft-white: #f0f0ee;
+    --easing:     cubic-bezier(0.23, 1, 0.32, 1);
+}
 
-    <div class="grain-overlay"></div>
+/* ═══════════════════════════════════════════
+   RESET & BASE (Metin kopyalama engelleme kuralları)
+═══════════════════════════════════════════ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
+html { scroll-behavior: smooth; }
+body {
+    background: var(--bg);
+    color: var(--soft-white);
+    font-family: 'Inter', sans-serif;
+    font-size: 17px;
+    line-height: 1.75;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    
+    /* Global Metin Seçimini ve Kopyalamayı Engelleme */
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
 
-    <div class="loader" id="loader">
-        <div class="loader-ring"></div>
-        <div class="loader-content">
-            ASHGABAT<br><span>GOLF CLUB</span>
-        </div>
-    </div>
+/* Resimlerin Seçilmesini ve Sürüklenmesini Engelleme */
+img, .slide {
+    user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
 
-    <nav class="nav-premium" id="main-nav">
-        <div class="nav-container">
-            <a href="#home" class="nav-logo">
-                ASHGABAT<br><span>GOLF CLUB</span>
-            </a>
-            <div class="nav-desktop">
-                <ul class="nav-links">
-                    <li><a href="#home"        class="link-item active">HOME</a></li>
-                    <li><a href="#about"       class="link-item">LANDSCAPE</a></li>
-                    <li><a href="#course"      class="link-item">THE INDOMITABLE</a></li>
-                    <li><a href="#training"    class="link-item">ACADEMY</a></li>
-                    <li><a href="#restaurant"  class="link-item">GOLF PLAZA</a></li>
-                    <li><a href="#golf-pop"    class="link-item">EVENTS</a></li>
-                    <li><a href="#recognition" class="link-item">GLOBAL</a></li>
-                    <li><a href="#handicaps"   class="link-item">PLAYER HCP</a></li>
-                </ul>
-            </div>
-            <div class="nav-mobile-trigger" id="mob-trigger">
-                <span class="trigger-text">MENU</span>
-                <div class="hamburger"><span></span><span></span></div>
-            </div>
-        </div>
-    </nav>
+/* ═══════════════════════════════════════════
+   GRAIN
+═══════════════════════════════════════════ */
+.grain-overlay {
+    position: fixed; inset: 0;
+    background-image: url('https://grainy-gradients.vercel.app/noise.svg');
+    opacity: 0.03; pointer-events: none; z-index: 9999;
+}
 
-    <div class="mobile-overlay" id="mob-overlay">
-        <div class="menu-panel">
-            <div class="panel-header">
-                <span class="panel-logo">ASHGABAT<br><span>GOLF CLUB</span></span>
-                <button class="overlay-close" id="mob-close">CLOSE ✕</button>
-            </div>
-            <ul class="mob-links">
-                <li><a href="#home">HOME</a></li>
-                <li><a href="#about">LANDSCAPE</a></li>
-                <li><a href="#course">THE INDOMITABLE</a></li>
-                <li><a href="#training">ACADEMY</a></li>
-                <li><a href="#restaurant">GOLF PLAZA</a></li>
-                <li><a href="#golf-pop">EVENTS</a></li>
-                <li><a href="#recognition">GLOBAL</a></li>
-                <li><a href="#handicaps">PLAYER HCP</a></li>
-            </ul>
-            <div class="panel-footer">
-                <p>ASHGABAT GOLF CLUB<br>Ashgabat, Turkmenistan</p>
-            </div>
-        </div>
-    </div>
+/* ═══════════════════════════════════════════
+   LOADER
+═══════════════════════════════════════════ */
+.loader {
+    position: fixed; inset: 0; background: var(--bg); z-index: 10000;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 26px;
+    transition: opacity 1s ease;
+}
+.loader-ring {
+    width: 56px; height: 56px;
+    border: 1px solid rgba(197,160,89,0.2);
+    border-top-color: var(--gold);
+    border-radius: 50%;
+    animation: spin 1.2s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.loader-content {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem; letter-spacing: 10px; color: var(--gold);
+    text-align: center; line-height: 1.3;
+}
+.loader-content span { color: rgba(255,255,255,0.5); font-size: 1rem; letter-spacing: 8px; }
 
-    <header id="home" class="hero-cinematic">
-        <div class="hero-slider">
-            <div class="slide active" style="background-image: url('Images/5417837357278370126.jpg');"></div>
-            <div class="slide"        style="background-image: url('Images/5417837357278370122.jpg');"></div>
-            <div class="slide"        style="background-image: url('Images/6.jpeg');"></div>
-            <div class="slide"        style="background-image: url('Images/5417837357278370124.jpg');"></div>
-            <div class="slide"        style="background-image: url('Images/10.jpeg');"></div>
-        </div>
-        <div class="hero-vignette"></div>
-        <div class="hero-content">
-            <div class="reveal-box"><span class="reveal-item">SINCE 2017</span></div>
-            <h1>Where Nature <br><i>Meets</i> The Game</h1>
-            <div class="hero-sub" id="hero-sub-box">
-                <div class="hero-sub-teaser" id="hero-sub-trigger">
-                    <span>Golf is</span>
-                    <span class="hero-sub-arrow" id="hero-sub-arrow">▾</span>
-                </div>
-                <div class="hero-sub-expanded" id="hero-sub-expanded">
-                    <p>Entertainment, sports and relaxation in the bosom of nature. 70 hectares of indomitable landscape — where every round is a journey through wilderness and wonder.</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="hero-stats">
-            <div class="stat-item">
-                <span class="stat-num counter-num" data-target="70">0</span>
-                <span class="stat-label">Hectares</span>
-            </div>
-            <div class="stat-divider"></div>
-            <div class="stat-item">
-                <span class="stat-num counter-num" data-target="18">0</span>
-                <span class="stat-label">Holes</span>
-            </div>
-            <div class="stat-divider"></div>
-            <div class="stat-item">
-                <span class="stat-num counter-num" data-target="72">0</span>
-                <span class="stat-label">Par</span>
-            </div>
-        </div>
-    </header>
+/* ═══════════════════════════════════════════
+   NAVBAR & LOGO
+═══════════════════════════════════════════ */
+.nav-premium {
+    position: fixed; top: 0; width: 100%; height: 88px;
+    z-index: 9000; transition: all 0.5s var(--easing);
+}
+.nav-premium.scrolled {
+    height: 64px;
+    background: rgba(12,30,24,0.95);
+    backdrop-filter: blur(20px) saturate(1.4);
+    border-bottom: 1px solid rgba(197,160,89,0.12);
+    box-shadow: 0 8px 40px rgba(0,0,0,0.3);
+}
+.nav-container {
+    max-width: 1560px; margin: 0 auto; padding: 0 50px;
+    height: 100%; display: flex; justify-content: space-between; align-items: center;
+}
+.nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem; font-weight: 800; letter-spacing: 1.5px;
+    color: #fff; text-decoration: none; flex-shrink: 0;
+    line-height: 1.1; text-align: center;
+    display: inline-block;
+}
+.nav-logo span { 
+    color: var(--gold); 
+    font-size: 1.05rem; 
+    letter-spacing: 3px; 
+    display: block; 
+    font-weight: 600;
+    text-align: center;
+    margin-top: 4px;
+}
 
-    <section id="about" class="story-section">
-        <div class="container">
-            <div class="story-grid">
-                <div class="story-image scroll-reveal">
-                    <img src="Images/5417837357278370129.jpg" alt="Ashgabat Foothills aerial view" draggable="false" />
-                    <div class="img-label">AERIAL VIEW · ASHGABAT GOLF CLUB</div>
-                </div>
-                <div class="story-text">
-                    <h5 class="section-tag">OUR LANDSCAPE</h5>
-                    <h2>Picturesque <br>Foothills</h2>
-                    <p>The beautiful Ashgabat Golf Club course perfectly fits into the natural landscape of the picturesque foothills of Ashgabat. The golf club's territory covers <strong>70 hectares</strong>.</p>
-                    <p class="story-sub">On the way to the holes, there are murmuring waterfalls, ponds with ducks, forests, pheasants, partridges, foxes and hares — a sanctuary where sport and nature become one.</p>
-                    <div class="story-features">
-                        <div class="feat-item"><span class="feat-icon">◈</span> Murmuring Waterfalls</div>
-                        <div class="feat-item"><span class="feat-icon">◈</span> Wildlife Ponds</div>
-                        <div class="feat-item"><span class="feat-icon">◈</span> Natural Forests</div>
-                        <div class="feat-item"><span class="feat-icon">◈</span> Scenic Foothills</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+.nav-links { display: flex; gap: 28px; list-style: none; flex-wrap: nowrap; overflow: hidden; }
+.link-item {
+    text-decoration: none; color: rgba(255,255,255,0.65);
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 2px;
+    position: relative; transition: color 0.35s; white-space: nowrap;
+}
+.link-item.active, .link-item:hover { color: #fff; }
+.link-item::after {
+    content: ''; position: absolute; bottom: -5px; left: 0;
+    width: 0; height: 1px; background: var(--gold);
+    transition: width 0.45s var(--easing);
+}
+.link-item:hover::after, .link-item.active::after { width: 100%; }
 
-    <section id="course" class="course-section">
-        <div class="container">
-            <div class="course-inner">
-                <div class="course-text">
-                    <h5 class="section-tag">THE JEWEL</h5>
-                    <h2>The Indomitable <i>18</i></h2>
-                    <p class="course-desc">The jewel of the golf club — an 18-hole course with difficult terrain and a wealth of obstacles that challenge every level of play.</p>
-                    <div class="course-specs">
-                        <div class="spec-card">
-                            <span class="spec-val">Par 72</span>
-                            <span class="spec-label">Regulation</span>
-                        </div>
-                        <div class="spec-card">
-                            <span class="spec-val">6,522 m</span>
-                            <span class="spec-label">Yellow Tee</span>
-                        </div>
-                        <div class="spec-card">
-                            <span class="spec-val">7,086 m</span>
-                            <span class="spec-label">Black Tee</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="course-image scroll-reveal">
-                    <img src="Images/5417837357278370121.jpg" alt="The 18-hole course" draggable="false" />
-                </div>
-            </div>
-        </div>
-    </section>
+/* ═══════════════════════════════════════════
+   MOBILE NAV TRIGGER
+═══════════════════════════════════════════ */
+.nav-mobile-trigger { display: none; cursor: pointer; align-items: center; gap: 12px; }
+.trigger-text { font-size: 0.72rem; font-weight: 600; letter-spacing: 3px; color: rgba(255,255,255,0.65); }
+.hamburger { display: flex; flex-direction: column; gap: 5px; }
+.hamburger span { display: block; width: 22px; height: 1px; background: var(--gold); }
 
-    <section id="training" class="academy-section">
-        <div class="container">
-            <div class="academy-header">
-                <h5 class="section-tag">SKILLS & TRAINING</h5>
-                <h2>Academy <i>&</i> Training Grounds</h2>
-                <p class="section-intro">World-class facilities designed for every level — from first-time beginners to seasoned professionals refining their craft.</p>
-            </div>
-            <div class="academy-grid">
-                <div class="academy-card scroll-reveal">
-                    <div class="card-img">
-                        <img src="Images/Ekran görüntüsü 2026-06-15 200921.png" alt="Academic Field" draggable="false" />
-                        <div class="card-num">01</div>
-                    </div>
-                    <div class="card-info">
-                        <h3>Academic Field</h3>
-                        <p>The academic field provides an opportunity to gain practical experience for both beginners and experienced golfers. A full-range facility built to elevate every swing.</p>
-                    </div>
-                </div>
-                <div class="academy-card scroll-reveal" style="transition-delay: 0.15s;">
-                    <div class="card-img">
-                        <img src="Images/12.jpg" alt="Short Game" draggable="false" />
-                        <div class="card-num">02</div>
-                    </div>
-                    <div class="card-info">
-                        <h3>Short Game Focus</h3>
-                        <p>The Putting Green and Chipping Green allow you to fully focus on practicing the short game — precision, touch, and confidence under pressure.</p>
-                    </div>
-                </div>
-                <div class="academy-card scroll-reveal" style="transition-delay: 0.3s;">
-                    <div class="card-img">
-                        <img src="Images/13.jpeg" alt="Sand Bunker" draggable="false" />
-                        <div class="card-num">03</div>
-                    </div>
-                    <div class="card-info">
-                        <h3>The Bunker</h3>
-                        <p>Master the art of taking the ball out of a deep sand trap. Our bunker training zone is purpose-built for learning one of golf's most demanding skills.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+/* ═══════════════════════════════════════════
+   MOBILE PANEL
+═══════════════════════════════════════════ */
+.mobile-overlay {
+    position: fixed; inset: 0; z-index: 9999;
+    visibility: hidden;
+    transition: visibility 0s linear 0.55s;
+}
+.mobile-overlay.open { visibility: visible; transition: visibility 0s linear 0s; }
+.mobile-overlay::before {
+    content: ''; position: absolute; inset: 0;
+    background: rgba(0,0,0,0.45); backdrop-filter: blur(3px);
+    opacity: 0; transition: opacity 0.45s ease;
+}
+.mobile-overlay.open::before { opacity: 1; }
 
-    <section id="restaurant" class="restaurant-section">
-        <div class="container">
-            <div class="restaurant-grid">
-                <div class="restaurant-text scroll-reveal">
-                    <h5 class="section-tag">DINING EXPERIENCE</h5>
-                    <h2>Golf Plaza <i>Restaurant</i></h2>
-                    <p>The Golf Plaza  restaurant offers guests a fabulous view of the golf course alongside a varied menu and a high level of service. The perfect setting for any occasion.</p>
-                    <ul class="oasis-features">
-                        <li><span class="feat-icon">◈</span> Panoramic Golf Course Views</li>
-                        <li><span class="feat-icon">◈</span> Varied International Menu</li>
-                        <li><span class="feat-icon">◈</span> Special Events & Banquets</li>
-                        <li><span class="feat-icon">◈</span> Business Meetings</li>
-                        <li><span class="feat-icon">◈</span> Cozy Family Dining</li>
-                    </ul>
-                </div>
-                <div class="restaurant-image scroll-reveal" style="transition-delay: 0.2s;">
-                    <img src="Images/4.jpeg" alt="OASIS Club Restaurant" draggable="false" />
-                    <div class="restaurant-badge">
-                        <span>GOLF</span>
-                        <span>PLAZA</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+.menu-panel {
+    position: absolute; top: 0; right: 0;
+    width: min(300px, 78vw); height: 100%;
+    background: var(--bg);
+    border-left: 1px solid rgba(197,160,89,0.18);
+    display: flex; flex-direction: column; padding-bottom: 40px;
+    transform: translateX(100%);
+    transition: transform 0.55s var(--easing);
+    box-shadow: -20px 0 50px rgba(0,0,0,0.4);
+}
+.mobile-overlay.open .menu-panel { transform: translateX(0); }
 
-    <section id="golf-pop" class="golf-pop-section">
-        <div class="container">
-            <div class="pop-header">
-                <h5 class="section-tag">GROWING THE GAME</h5>
-                <h2>Popularization <i>of Golf</i></h2>
-                <p class="section-intro">Annually, the Ashgabat Golf Club organizes international, thematic, corporate and weekly regular tournaments, implements programs to promote golf among beginners, trains adults and children in golf schools, and conducts a summer children's golf camp.</p>
-            </div>
-            <div class="pop-cards">
-                <div class="pop-card scroll-reveal">
-                    <div class="pop-card-img">
-                        <img src="Images/14.jpg" alt="Junior Golf Camp" draggable="false" />
-                    </div>
-                    <div class="pop-card-body">
-                        <h4>Junior Golf Camp</h4>
-                        <p>Summer children's golf camp where the next generation discovers the sport in a nurturing, fun environment.</p>
-                    </div>
-                </div>
-                <div class="pop-card scroll-reveal" style="transition-delay: 0.15s;">
-                    <div class="pop-card-img">
-                        <img src="Images/3.jpeg" alt="Tournaments" draggable="false" />
-                    </div>
-                    <div class="pop-card-body">
-                        <h4>Tournaments & Events</h4>
-                        <p>International, thematic, corporate and weekly regular competitions that bring the global golf community together.</p>
-                    </div>
-                </div>
-                <div class="pop-card scroll-reveal" style="transition-delay: 0.3s;">
-                    <div class="pop-card-img">
-                        <img src="Images/17.jpg" alt="Golf School" draggable="false" />
-                    </div>
-                    <div class="pop-card-body">
-                        <h4>Golf School</h4>
-                        <p>Structured programs teaching adults and children the fundamentals and finer points of the game year-round.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+.panel-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 26px 28px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    margin-bottom: 16px;
+}
+.panel-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem; letter-spacing: 2px; color: #fff; font-weight: 700;
+}
+.panel-logo span { color: var(--gold); }
+.overlay-close {
+    background: none; border: 1px solid rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.6); font-size: 0.62rem; letter-spacing: 2px;
+    padding: 5px 10px; border-radius: 100px; cursor: pointer; transition: all 0.3s;
+}
+.overlay-close:hover { color: var(--gold); border-color: rgba(197,160,89,0.4); }
 
-    <section id="recognition" class="recognition-section">
-        <div class="container">
-            <div class="recognition-grid">
-                <div class="recognition-text scroll-reveal">
-                    <h5 class="section-tag">INTERNATIONAL RECOGNITION</h5>
-                    <h2>A Global <i>Community</i></h2>
-                    <p>The beautiful and interesting course of our club was loved by both Turkmen and golfers from around the world. Golf enthusiasts from the USA, England, Poland, Russia, India, Malaysia, Japan, Korea, Turkey, Pakistan and many more have become members — a testament to the club's recognition at a high international level.</p>
-                </div>
-                <div class="recognition-image scroll-reveal" style="transition-delay:0.2s;">
-                    <img src="Images/2.jpeg" alt="International Golf Community at Ashgabat GC" />
-                </div>
-            </div>
-        </div>
-    </section>
+.mob-links { list-style: none; padding: 0 28px; flex: 1; display: flex; flex-direction: column; gap: 2px; }
+.mob-links a {
+    text-decoration: none; color: rgba(255,255,255,0.65);
+    font-size: 0.74rem; font-weight: 600; letter-spacing: 3px;
+    display: flex; align-items: center; gap: 12px;
+    padding: 13px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+    transition: color 0.3s, padding-left 0.3s;
+}
+.mob-links a::before {
+    content: ''; display: block; width: 0; height: 1px;
+    background: var(--gold); transition: width 0.3s var(--easing); flex-shrink: 0;
+}
+.mob-links a:hover { color: #fff; padding-left: 4px; }
+.mob-links a:hover::before { width: 14px; }
 
-    <section id="handicaps" class="handicap-section">
-        <div class="container">
-            <div class="table-container scroll-reveal">
-                <h5 class="section-tag">REGISTERED MEMBERS</h5>
-                <h2>Player <i>Handicaps</i></h2>
-                <div class="premium-table">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>PLAYER</th>
-                                <th>HCP</th>
-                                <th>COUNTRY</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Gul Mark</td>
-                                <td class="hcp-val">18.4</td>
-                                <td><span class="country-tag">United States</span></td>
-                            </tr>
-                            <tr>
-                                <td>Ishkabulov Kurban</td>
-                                <td class="hcp-val">24.6</td>
-                                <td><span class="country-tag">Turkmenistan</span></td>
-                            </tr>
-                            <tr>
-                                <td>Samoshkin Igor</td>
-                                <td class="hcp-val">24.8</td>
-                                <td><span class="country-tag">Russian Federation</span></td>
-                            </tr>
-                            <tr>
-                                <td>Syazwan Abdul Ghani</td>
-                                <td class="hcp-val">17.7</td>
-                                <td><span class="country-tag">Malaysia</span></td>
-                            </tr>
-                            <tr>
-                                <td>Aydin Gulzada</td>
-                                <td class="hcp-val">24.7</td>
-                                <td><span class="country-tag">Turkmenistan</span></td>
-                            </tr>
-                            <tr>
-                                <td>Aydin Hasan</td>
-                                <td class="hcp-val">24.8</td>
-                                <td><span class="country-tag">Turkey</span></td>
-                            </tr>
-                            <tr>
-                                <td>Aydin Azat</td>
-                                <td class="hcp-val">24.9</td>
-                                <td><span class="country-tag">Turkmenistan</span></td>
-                            </tr>
-                            <tr>
-                                <td>Aydin Sercan</td>
-                                <td class="hcp-val">25.0</td>
-                                <td><span class="country-tag">Turkey</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </section>
+.panel-footer { padding: 24px 28px 0; }
+.panel-footer p { font-size: 0.7rem; letter-spacing: 1.5px; color: rgba(255,255,255,0.28); line-height: 1.9; }
 
-    <footer class="footer-premium">
-        <div class="footer-glow"></div>
-        <div class="container">
-            <div class="footer-top">
-                <div class="footer-brand">
-                    <div class="footer-logo">ASHGABAT<br><span>GOLF CLUB</span></div>
-                    <p class="footer-tagline">Where Nature Meets The Game</p>
-                </div>
-                <div class="footer-nav">
-                    <h6>Navigate</h6>
-                    <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#about">Landscape</a></li>
-                        <li><a href="#course">The Indomitable</a></li>
-                        <li><a href="#training">Academy</a></li>
-                        <li><a href="#restaurant">Golf Plaza Restaurant</a></li>
-                        <li><a href="#golf-pop">Events</a></li>
-                        <li><a href="#recognition">Global</a></li>
-                        <li><a href="#handicaps">Player HCP</a></li>
-                    </ul>
-                </div>
-                <div class="footer-info">
-                    <h6>Location</h6>
-                    <a href="https://www.google.com/maps/@37.92036,58.3316077,17z?entry=ttu&g_ep=EgoyMDI2MDYwMS4wIKXMDSoASAFQAw%3D%3D"
-                       target="_blank" rel="noopener" class="footer-map-link">
-                         Bitarap Turkmenistan avenue, 29<br>Ashgabat, Turkmenistan
-                        <span class="map-icon">↗</span>
-                    </a>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>© 2017 – 2026 Ashgabat Golf Club. All Rights Reserved.</p>
-                <div class="footer-line"></div>
-            </div>
-        </div>
-    </footer>
+/* ═══════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════ */
+.hero-cinematic {
+    height: 100vh; min-height: 700px;
+    position: relative; display: flex; align-items: center; overflow: hidden;
+}
+.hero-slider .slide {
+    position: absolute; inset: 0;
+    background-size: cover; background-position: center;
+    opacity: 0; transition: opacity 1.2s ease;
+}
+.hero-slider .slide.active {
+    opacity: 1; transform: scale(1.05);
+    transition: opacity 1.2s ease, transform 8s linear;
+}
+.hero-vignette {
+    position: absolute; inset: 0;
+    background: linear-gradient(105deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.15) 55%, transparent 100%);
+}
+.hero-content {
+    position: relative; z-index: 10;
+    padding-left: 10%; max-width: 820px;
+}
+.reveal-box { overflow: hidden; margin-bottom: 20px; }
+.reveal-item {
+    display: inline-block; color: var(--gold);
+    font-size: 1rem; letter-spacing: 3px; font-weight: 600;
+    animation: slideUp 1s var(--easing) 0.5s both;
+}
+.hero-content h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.2rem, 7vw, 6rem);
+    line-height: 0.92; margin-bottom: 28px;
+    animation: slideUp 1s var(--easing) 0.7s both;
+}
+.hero-content h1 i { color: var(--gold-light); }
+.hero-sub {
+    color: #fff;
+    background: rgba(0,0,0,0.38);
+    backdrop-filter: blur(6px);
+    display: inline-block;
+    border-left: 2px solid var(--gold);
+    border-radius: 2px;
+    margin-bottom: 40px;
+    animation: slideUp 1s var(--easing) 0.9s both;
+    overflow: hidden;
+    min-width: 260px;
+    max-width: 480px;
+}
+.hero-sub-teaser {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px; padding: 10px 18px;
+    cursor: pointer;
+    user-select: none;
+    font-size: 1.05rem; font-weight: 600;
+    color: var(--gold-light);
+}
+.hero-sub-teaser:hover { background: rgba(255,255,255,0.05); }
+.hero-sub-arrow {
+    color: var(--gold);
+    font-size: 1rem;
+    transition: transform 0.4s var(--easing);
+    flex-shrink: 0;
+}
+.hero-sub.open .hero-sub-arrow {
+    transform: rotate(180deg);
+}
+.hero-sub-expanded {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s var(--easing), padding 0.4s var(--easing);
+    padding: 0 18px;
+}
+.hero-sub.open .hero-sub-expanded {
+    max-height: 200px;
+    padding: 0 18px 14px;
+}
+.hero-sub-expanded p {
+    font-size: 1.05rem;
+    line-height: 1.85;
+    color: #fff;
+    border-top: 1px solid rgba(197,160,89,0.2);
+    padding-top: 10px;
+}
 
-    <script src="script.js"></script>
-</body>
-</html>
+.hero-stats {
+    position: absolute; bottom: 60px; right: 8%;
+    display: flex; align-items: center; justify-content: center; z-index: 10;
+    background: rgba(0, 0, 0, 0.42); 
+    backdrop-filter: blur(5px); 
+    -webkit-backdrop-filter: blur(5px);
+    padding: 10px 6px;
+    border-radius: 4px;
+    border: 1px solid rgba(197, 160, 89, 0.12); 
+    animation: fadeIn 1s ease 1.5s both;
+}
+.stat-item { 
+    text-align: center; 
+    padding: 0 18px; 
+}
+.stat-num {
+    display: block; font-family: 'Playfair Display', serif;
+    font-size: 1.9rem; font-weight: 800; color: var(--gold); line-height: 1.1;
+}
+.stat-label { 
+    font-size: 0.62rem; letter-spacing: 2.5px; color: rgba(255,255,255,0.65); margin-top: 2px; display: block; 
+}
+.stat-divider { 
+    width: 1px; height: 32px; background: rgba(197,160,89,0.2);
+}
+
+/* ═══════════════════════════════════════════
+   GLOBAL HELPERS
+═══════════════════════════════════════════ */
+.container { max-width: 1360px; margin: 0 auto; padding: 0 50px; }
+
+.section-tag {
+    display: block; color: var(--gold);
+    letter-spacing: 5px; font-size: 0.74rem; font-weight: 600;
+    margin-bottom: 16px; text-transform: uppercase;
+}
+.section-intro {
+    font-size: 1.08rem; line-height: 1.85;
+    color: rgba(240,240,238,0.72);
+}
+
+/* ═══════════════════════════════════════════
+   ALL CONTENT SECTIONS
+═══════════════════════════════════════════ */
+.story-section,
+.course-section,
+.academy-section,
+.restaurant-section,
+.golf-pop-section,
+.recognition-section,
+.handicap-section {
+    padding: 150px 0;
+    background: var(--bg);
+}
+
+.course-section,
+.restaurant-section,
+.recognition-section {
+    background: var(--bg-alt);
+}
+
+/* ═══════════════════════════════════════════
+   STORY / ABOUT
+═══════════════════════════════════════════ */
+.story-grid {
+    display: grid; grid-template-columns: 1.2fr 1fr;
+    gap: 80px; align-items: center;
+}
+.story-image {
+    position: relative; height: 600px;
+    border-radius: 4px; overflow: hidden;
+    box-shadow: 0 30px 70px rgba(0,0,0,0.35);
+}
+.story-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s var(--easing); }
+.story-image:hover img { transform: scale(1.04); }
+.img-label {
+    position: absolute; bottom: 22px; left: 22px;
+    font-size: 0.64rem; letter-spacing: 3px; color: rgba(255,255,255,0.72);
+    background: rgba(12,30,24,0.7); backdrop-filter: blur(8px);
+    padding: 7px 14px; border-radius: 100px;
+}
+.story-text h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 4vw, 3.8rem); line-height: 1.05;
+    margin-bottom: 26px;
+}
+.story-text p {
+    font-size: 1.08rem; line-height: 1.85;
+    color: rgba(240,240,238,0.78); margin-bottom: 18px;
+}
+.story-text strong { color: var(--soft-white); font-weight: 600; }
+.story-sub,
+.section-intro,
+.course-desc,
+.recognition-text p,
+.restaurant-text > p,
+.story-text p,
+.card-info p,
+.pop-card-body p,
+.oasis-features li,
+.feat-item {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 400;
+    line-height: 1.85;
+    color: #fff;
+}
+.story-features {
+    margin-top: 34px; display: grid; grid-template-columns: 1fr 1fr; gap: 13px;
+}
+.feat-item { display: flex; align-items: center; gap: 10px; color: #fff; }
+.feat-icon { color: var(--gold); font-size: 0.58rem; }
+
+/* ═══════════════════════════════════════════
+   COURSE
+═══════════════════════════════════════════ */
+.course-inner {
+    display: grid; grid-template-columns: 1fr 1.1fr;
+    gap: 80px; align-items: center;
+}
+.course-text h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 4vw, 3.8rem); line-height: 1.05; margin-bottom: 22px;
+}
+.course-text h2 i { color: var(--gold); }
+.course-desc { margin-bottom: 44px; }
+.course-specs { display: flex; gap: 12px; flex-wrap: wrap; }
+.spec-card {
+    background: rgba(197,160,89,0.07);
+    border: 1px solid rgba(197,160,89,0.22);
+    padding: 22px 32px; border-radius: 4px;
+    display: flex; flex-direction: column; gap: 6px;
+    transition: all 0.4s var(--easing); cursor: default;
+}
+.spec-card:hover { background: rgba(197,160,89,0.13); border-color: var(--gold); transform: translateY(-4px); }
+.spec-val {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem; font-weight: 700; color: var(--gold);
+}
+.spec-label { font-size: 0.7rem; letter-spacing: 3px; color: rgba(240,240,238,0.5); }
+.course-image {
+    position: relative; height: 520px;
+    border-radius: 4px; overflow: hidden;
+    box-shadow: 0 30px 70px rgba(0,0,0,0.35);
+}
+.course-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s var(--easing); }
+.course-image:hover img { transform: scale(1.04); }
+
+/* ═══════════════════════════════════════════
+   ACADEMY
+═══════════════════════════════════════════ */
+.academy-header { margin-bottom: 60px; }
+.academy-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 4vw, 3.8rem); margin-bottom: 18px;
+}
+.academy-header h2 i { color: var(--gold); }
+
+.academy-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 28px; }
+.academy-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 6px; overflow: hidden;
+    transition: all 0.5s var(--easing);
+}
+.academy-card:hover { transform: translateY(-10px); box-shadow: 0 24px 50px rgba(0,0,0,0.3); border-color: rgba(197,160,89,0.35); }
+
+.card-img { 
+    position: relative; 
+    width: 100%;
+    height: 280px; 
+    overflow: hidden; 
+}
+.card-img img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    object-position: center; 
+    transition: transform 0.7s var(--easing); 
+}
+
+.academy-grid .academy-card:first-child .card-img img {
+    object-position: center bottom !important; 
+}
+
+.academy-card:hover .card-img img { transform: scale(1.06); }
+.card-num {
+    position: absolute; top: 16px; right: 18px;
+    font-family: 'Playfair Display', serif; font-size: 2.8rem; font-weight: 800;
+    color: rgba(255,255,255,0.08); line-height: 1; pointer-events: none;
+}
+.card-info { padding: 28px 30px; }
+.card-info h3 { font-family: 'Playfair Display', serif; font-size: 1.6rem; margin-bottom: 12px; color: var(--gold); }
+
+/* ═══════════════════════════════════════════
+   RESTAURANT
+═══════════════════════════════════════════ */
+.restaurant-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 80px; align-items: center; }
+.restaurant-text h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 4vw, 3.8rem); line-height: 1.1; margin-bottom: 22px;
+}
+.restaurant-text h2 i { color: var(--gold); }
+.restaurant-text > p { margin-bottom: 34px; }
+.oasis-features { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.oasis-features li { display: flex; align-items: center; gap: 12px; color: #fff; }
+.restaurant-image {
+    position: relative; height: 560px; border-radius: 4px;
+    overflow: hidden; box-shadow: 0 30px 70px rgba(0,0,0,0.35);
+}
+.restaurant-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s var(--easing); }
+.restaurant-image:hover img { transform: scale(1.04); }
+.restaurant-badge {
+    position: absolute; bottom: 28px; right: 28px;
+    background: var(--bg); color: var(--gold);
+    padding: 14px 22px; border-radius: 4px;
+    display: flex; flex-direction: column; align-items: center;
+    font-family: 'Playfair Display', serif; font-size: 0.74rem;
+    letter-spacing: 3px; line-height: 1.7;
+    border: 1px solid rgba(197,160,89,0.28);
+}
+
+/* ═══════════════════════════════════════════
+   GOLF POPULARIZATION
+═══════════════════════════════════════════ */
+.pop-header { margin-bottom: 60px; }
+.pop-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 4vw, 3.8rem); line-height: 1.1; margin-bottom: 20px;
+}
+.pop-header h2 i { color: var(--gold); }
+.pop-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 28px; }
+.pop-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 6px; overflow: hidden;
+    transition: all 0.5s var(--easing);
+}
+.pop-card:hover { transform: translateY(-10px); box-shadow: 0 24px 50px rgba(0,0,0,0.3); border-color: rgba(197,160,89,0.35); }
+.pop-card-img { height: 230px; overflow: hidden; }
+.pop-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s var(--easing); }
+.pop-card:hover .pop-card-img img { transform: scale(1.06); }
+.pop-card-body { padding: 26px 28px; }
+.pop-card-body h4 { font-family: 'Playfair Display', serif; font-size: 1.45rem; color: var(--gold); margin-bottom: 10px; }
+
+/* ═══════════════════════════════════════════
+   RECOGNITION
+═══════════════════════════════════════════ */
+.recognition-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: start; }
+.recognition-text h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 4vw, 3.8rem); line-height: 1.1; margin-bottom: 24px;
+}
+.recognition-text h2 i { color: var(--gold); }
+.recognition-text p { font-size: 1.08rem; line-height: 1.85; color: rgb(240, 240, 238); }
+.recognition-image { width: 100%; border-radius: 6px; overflow: hidden; box-shadow: 0 30px 70px rgba(0,0,0,0.35); }
+.recognition-image img { width: 100%; height: 100%; display: block; object-fit: cover; }
+
+/* ═══════════════════════════════════════════
+   PLAYERS TABLE (Fontlar büyütüldü)
+═══════════════════════════════════════════ */
+.table-container { max-width: 920px; margin: 0 auto; }
+.table-container h2 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 4vw, 3.8rem); line-height: 1.1; margin-bottom: 0; }
+.table-container h2 i { color: var(--gold); }
+
+.premium-table { 
+    margin-top: 44px; 
+    overflow-x: auto; 
+    overflow-y: auto; 
+    max-height: 380px; 
+    border-radius: 6px; 
+}
+
+.premium-table::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+.premium-table::-webkit-scrollbar-track {
+    background: rgba(12, 30, 24, 0.5);
+}
+.premium-table::-webkit-scrollbar-thumb {
+    background: var(--gold);
+    border-radius: 100px;
+}
+.premium-table::-webkit-scrollbar-thumb:hover {
+    background: var(--gold-light);
+}
+
+.premium-table table { width: 100%; border-collapse: collapse; }
+.premium-table thead { 
+    background: var(--bg); 
+    border-bottom: 1px solid rgba(197,160,89,0.2); 
+    position: sticky; 
+    top: 0; 
+    z-index: 10; 
+    backdrop-filter: blur(10px) saturate(1.2); 
+}
+.premium-table th { 
+    text-align: left; 
+    padding: 18px 24px; 
+    color: var(--gold); 
+    letter-spacing: 3px; 
+    font-size: 0.85rem; 
+    font-weight: 600; 
+}
+.premium-table td { 
+    padding: 16px 24px; 
+    border-bottom: 1px solid rgba(255,255,255,0.05); 
+    font-size: 1.15rem; 
+    color: #fff; 
+    transition: all 0.3s; 
+}
+.premium-table tr:last-child td { border-bottom: none; }
+.premium-table tr:hover td { background: rgba(197,160,89,0.06); color: var(--soft-white); padding-left: 30px; }
+.hcp-val { 
+    font-family: 'Playfair Display', serif; 
+    font-size: 1.5rem !important; 
+    color: var(--gold) !important; 
+    font-weight: 700; 
+}
+.country-tag { font-size: 1.08rem; letter-spacing: 0.5px; color: #fff; }
+
+/* ═══════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════ */
+.footer-premium { background: #060f0d; position: relative; padding: 90px 0 40px; overflow: hidden; }
+.footer-glow { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 500px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); }
+.footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 60px; margin-bottom: 60px; padding-bottom: 60px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+.footer-logo { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 800; letter-spacing: 2px; color: #fff; margin-bottom: 12px; line-height: 1.2; }
+.footer-logo span { color: var(--gold); font-size: 1.55rem; letter-spacing: 6px; display: block; font-weight: 600; margin-top: 2px; }
+.footer-tagline { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-style: italic; color: rgba(255, 255, 255, 0.758); letter-spacing: 0.5px; }
+.footer-nav h6, .footer-info h6 { font-size: 0.68rem; letter-spacing: 4px; color: var(--gold); margin-bottom: 18px; font-weight: 600; }
+.footer-nav ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.footer-nav a { text-decoration: none; color: rgba(255,255,255,0.52); font-size: 0.95rem; transition: color 0.3s; }
+.footer-nav a:hover { color: var(--gold); }
+.footer-info p { color: rgba(255, 255, 255, 0.585); font-size: 0.95rem; line-height: 1.8; }
+.footer-map-link { display: inline-block; color: rgba(255,255,255,0.7); font-size: 1rem; line-height: 1.8; text-decoration: none; border-bottom: 1px solid rgba(197,160,89,0.3); padding-bottom: 2px; transition: color 0.3s, border-color 0.3s; }
+.footer-map-link:hover { color: var(--gold); border-color: var(--gold); }
+.map-icon { display: inline-block; margin-left: 6px; color: var(--gold); font-size: 0.85rem; transition: transform 0.3s; }
+.footer-map-link:hover .map-icon { transform: translate(2px, -2px); }
+.footer-bottom { display: flex; align-items: center; justify-content: space-between; gap: 30px; }
+.footer-bottom p { font-size: 0.88rem; color: rgba(255, 255, 255, 0.693); letter-spacing: 0.5px; }
+.footer-line { flex: 1; height: 1px; background: rgba(255,255,255,0.05); }
+
+/* ═══════════════════════════════════════════
+   SCROLL REVEAL
+═══════════════════════════════════════════ */
+.scroll-reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.9s var(--easing), transform 0.9s var(--easing); }
+.scroll-reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ═══════════════════════════════════════════
+   KEYFRAMES
+═══════════════════════════════════════════ */
+@keyframes slideUp { from { opacity: 0; transform: translateY(28px); } to   { opacity: 1; transform: translateY(0); } }
+@keyframes fadeIn { from { opacity: 0; } to   { opacity: 1; } }
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════ */
+@media (max-width: 1100px) { .nav-links { gap: 18px; } }
+@media (max-width: 1024px) {
+    .nav-links { display: none; }
+    .nav-mobile-trigger { display: flex; }
+    .nav-container { padding: 0 28px; }
+    .story-grid, .course-inner, .restaurant-grid, .recognition-grid { grid-template-columns: 1fr; gap: 48px; }
+    .story-image, .course-image, .restaurant-image { height: 400px; }
+    .recognition-image { height: 340px; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    .footer-brand { grid-column: 1 / -1; }
+    .hero-stats { display: none; }
+}
+@media (max-width: 768px) {
+    .container { padding: 0 22px; }
+    .story-section, .course-section, .academy-section, .restaurant-section, .golf-pop-section, .recognition-section, .handicap-section { padding: 100px 0; }
+    .academy-grid, .pop-cards { grid-template-columns: 1fr; }
+    .course-specs { flex-direction: column; }
+    .footer-top { grid-template-columns: 1fr; gap: 36px; }
+    .footer-bottom { flex-direction: column; text-align: center; }
+}
